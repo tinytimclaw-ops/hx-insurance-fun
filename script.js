@@ -372,7 +372,7 @@ function showSelectInput(options, onSelect) {
   }, 1400);
 }
 
-function submitSelect() {
+window.submitSelect = function() {
   const select = document.getElementById('selectInput');
   const value = select.value;
   if (!value) return;
@@ -418,7 +418,7 @@ function showDateInputs(onComplete) {
   }, 1400);
 }
 
-function submitDates() {
+window.submitDates = function() {
   const startDate = document.getElementById('startDate').value;
   if (!startDate) return;
 
