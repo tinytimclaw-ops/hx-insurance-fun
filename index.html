@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Get travel insurance the fun way! Chat with our friendly bot to get your quote in minutes.">
+
+  <title>Travel Insurance - The Fun Way | Holiday Extras</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Travel Insurance - The Fun Way">
+  <meta property="og:description" content="Get your travel insurance quote through a fun, interactive chat experience.">
+  <meta property="og:type" content="website">
+
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://d17s4kc6349e5h.cloudfront.net">
+  <link rel="preconnect" href="https://hapi.holidayextras.co.uk">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "InsuranceAgency",
+    "name": "Holiday Extras",
+    "description": "Fun, easy travel insurance quotes",
+    "url": "https://www.holidayextras.com"
+  }
+  </script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <img src="https://d17s4kc6349e5h.cloudfront.net/holidayextras/assets/images/logos/HolidayExtras-logo-horizontal-transparent.svg"
+           alt="Holiday Extras"
+           class="logo"
+           height="60"
+           width="240">
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="hero">
+    <picture>
+      <source srcset="assets/hero.webp" type="image/webp">
+      <img src="assets/hero.jpg"
+           alt="Travel Insurance - The Fun Way"
+           class="hero-image"
+           width="1600"
+           height="900"
+           loading="eager">
+    </picture>
+    <div class="hero-overlay">
+      <div class="container">
+        <div class="hero-badge">✨ The fun way to get covered</div>
+        <h1 class="hero-title">Let's get you sorted!</h1>
+        <p class="hero-subtitle">Chat with our friendly bot to get your travel insurance quote</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chat Interface -->
+  <section class="chat-section">
+    <div class="container">
+      <div class="chat-container">
+        <div class="chat-messages" id="chatMessages">
+          <!-- Messages will be added here dynamically -->
+        </div>
+        <div class="chat-input-area" id="chatInputArea">
+          <!-- Input will be added here dynamically -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section class="benefits">
+    <div class="container">
+      <h2 class="section-title">What you'll be covered for</h2>
+
+      <div class="benefit-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon">🏥</div>
+          <h3 class="benefit-title">Medical cover up to £10m</h3>
+          <p class="benefit-description">Emergency medical treatment and repatriation</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">✈️</div>
+          <h3 class="benefit-title">Trip cancellation</h3>
+          <p class="benefit-description">Get your money back if plans change</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">🧳</div>
+          <h3 class="benefit-title">Lost baggage</h3>
+          <p class="benefit-description">Up to £2,500 for lost or stolen belongings</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">⏰</div>
+          <h3 class="benefit-title">24/7 support</h3>
+          <p class="benefit-description">Emergency helpline whenever you need it</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Holiday Extras. All rights reserved. | <a href="https://www.holidayextras.com/terms" class="footer-link">Terms</a> | <a href="https://www.holidayextras.com/privacy" class="footer-link">Privacy</a></p>
+      <p class="small">Holiday Extras Ltd is an appointed representative of ITC Compliance Ltd which is authorised and regulated by the Financial Conduct Authority (their registration number is 313486).</p>
+    </div>
+  </footer>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+    <div class="spinner"></div>
+    <p>Getting your quote...</p>
+  </div>
+</body>
+</html>
