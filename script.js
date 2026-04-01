@@ -1,6 +1,7 @@
 // Chat bot state
 const conversation = {
   step: 0,
+  currentStepId: null,
   data: {
     coverType: null,
     region: null,
@@ -228,6 +229,8 @@ function startConversation() {
 }
 
 function showStep(step) {
+  conversation.currentStepId = step.id;
+
   setTimeout(() => {
     addBotMessage(step.botMessage, step.type);
 
@@ -378,7 +381,7 @@ function submitSelect() {
   addUserMessage(text);
   document.getElementById('chatInputArea').innerHTML = '';
 
-  const step = steps.find(s => s.id === getCurrentStepId());
+  const step = steps.find(s => s.id === conversation.currentStepId);
   if (step && step.onSelect) {
     step.onSelect(value);
   }
@@ -513,10 +516,6 @@ function nextStep(stepId) {
   }
 }
 
-function getCurrentStepId() {
-  // Helper to find current step - not fully implemented for this demo
-  return null;
-}
 
 async function getQuote() {
   document.getElementById('loadingOverlay').style.display = 'flex';
