@@ -156,8 +156,13 @@ const steps = [
       { text: "£9,000 - £10,000", value: 10000 },
       { text: "£10,000+", value: 20000 }
     ],
-    onSelect: (value) => {
+    onSelect: async (value) => {
       conversation.data.holidayValue = parseInt(value);
+
+      // Fire HAPI certificate call in background immediately (as per skill spec)
+      conversation.data.policySubtype = 'non-medical';
+      callHapiCertificateBackground();
+
       nextStep('medicalIntro');
     }
   },
@@ -517,11 +522,9 @@ function nextStep(stepId) {
 }
 
 
-async function getQuote() {
-  document.getElementById('loadingOverlay').style.display = 'flex';
-
+// Fire certificate API call in background (called after holiday cost selection)
+async function callHapiCertificateBackground() {
   try {
-    // Call HAPI certificate API
     const sid = generateRandomHex(32);
     const certResponse = await fetch(
       `https://hapi.holidayextras.co.uk/insurance/certificates/new?token=4ad4966f-0b6a-49a9-8601-2a456aeb5c03&sid=${sid}`,
@@ -550,10 +553,54 @@ async function getQuote() {
       const certData = await certResponse.json();
       conversation.data.certificateID = certData.certificateID;
       conversation.data.hash = certData.insHash;
+      console.log('Background certificate created:', certData.certificateID);
     }
   } catch (error) {
-    console.error('Certificate API error:', error);
+    console.error('Background certificate API error:', error);
   }
+}
+
+async function getQuote() {
+  document.getElementById('loadingOverlay').style.display = 'flex';
+
+  // If medical conditions = yes, we need to fire a new certificate with policySubtype: medical
+  if (conversation.data.medicalConditions === 'yes' && conversation.data.policySubtype === 'medical') {
+    try {
+      const sid = generateRandomHex(32);
+      const certResponse = await fetch(
+        `https://hapi.holidayextras.co.uk/insurance/certificates/new?token=4ad4966f-0b6a-49a9-8601-2a456aeb5c03&sid=${sid}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            from: conversation.data.startDate,
+            to: conversation.data.endDate,
+            destination_id: conversation.data.destId,
+            agent: 'WT411',
+            policySubtype: 'medical',
+            holidayValue: conversation.data.holidayValue,
+            family_group_id: 1,
+            country: 'GBR',
+            cruise: false,
+            email: null,
+            unrecSend: 1,
+            renewal: 0,
+            people: conversation.data.travellers
+          })
+        }
+      );
+
+      if (certResponse.ok) {
+        const certData = await certResponse.json();
+        conversation.data.certificateID = certData.certificateID;
+        conversation.data.hash = certData.insHash;
+        console.log('Medical certificate created:', certData.certificateID);
+      }
+    } catch (error) {
+      console.error('Medical certificate API error:', error);
+    }
+  }
+  // Otherwise, we already have the non-medical cert from background call
 
   // Build redirect URL
   const isMedical = conversation.data.medicalConditions === 'yes';
